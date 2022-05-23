@@ -1,0 +1,7 @@
+export enum PartnerType {
+  INTERNAL = 'INTERNAL',
+  GOVERNMENT = 'GOVERNMENT',
+  NGO = 'NGO',
+  FOREIGN_MISSION = 'FOREIGN MISSION',
+  OTHER = 'OTHER',
+}

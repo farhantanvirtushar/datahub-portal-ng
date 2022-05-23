@@ -1,0 +1,58 @@
+<mat-sidenav-container class="app-container">
+    <mat-sidenav #sidenav class="app-sidenav" [fixedInViewport]="mobileQuery.matches" [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="sideNavOpened">
+        <mat-nav-list>
+            <!-- wrap all the nav items in an accordion panel -->
+            <mat-accordion displayMode="flat" multi>
+                <div *ngFor="let navItem of navList" class="nav-item">
+                    <!-- use a simple div for an item that has no children,
+            match up the styling to the expansion panel styles -->
+
+                    <div class="nav-section" [routerLink]="navItem.url" routerLinkActive="selected" *ngIf="navItem.pages.length === 0">
+                        <div class="nav-head">
+                            <div class="nav-link-item" (click)="closeSidenav()">
+                                <mat-icon class="material-icons-outlined">{{ navItem.icon }}
+                                </mat-icon>
+                                <span class="nav-link-text">{{ navItem.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- use expansion panel for heading item with sub page links -->
+                    <mat-expansion-panel *ngIf="navItem.pages.length > 0" class="nav-expansion-panel mat-elevation-z0">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon class="material-icons-outlined">{{ navItem.icon }}
+                                </mat-icon>
+                                <span class="nav-link-text">{{ navItem.name }}</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <div class="nav-section" [routerLink]="navPage.url" routerLinkActive="selected" *ngFor="let navPage of navItem.pages">
+                            <!-- loop through all your sub pages inside the expansion panel content -->
+                            <div class="nav-head">
+                                <div class="nav-link-item" (click)="closeSidenav()">
+                                    <mat-icon class="material-icons-outlined">{{ navPage.icon }}
+                                    </mat-icon>
+                                    <span class="nav-link-text">{{ navPage.name }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </div>
+            </mat-accordion>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content [style.marginLeft.px]="sidenav.opened && !mobileQuery.matches ? '300' : '0'">
+        <div class="app-content">
+            <app-card>
+                <div class="app-top-bar">
+                    <button mat-icon-button color="primary" aria-label="menu icon" type="button" (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+                </div>
+            </app-card>
+
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

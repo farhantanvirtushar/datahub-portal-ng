@@ -1,0 +1,64 @@
+<div class="container">
+    <app-card>
+        <div class="container-body">
+            <div class="title mat-h1">Agency Management</div>
+            <div class="row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Status</mat-label>
+                    <mat-select matNativeControl value="ACTIVE">
+                        <mat-option value="ACTIVE">ACTIVE</mat-option>
+                        <mat-option value="INACTIVE">INACTIVE</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button class="styled-button">Create New</button>
+            </div>
+            <div class="partners-table">
+                <mat-table [dataSource]="partnerListDataSource">
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef>Agency Name</mat-header-cell>
+                        <mat-cell *matCellDef="let partner">{{ partner.name }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="partner-type">
+                        <mat-header-cell *matHeaderCellDef>Partner Type</mat-header-cell>
+                        <mat-cell class="description-cell" *matCellDef="let partner">{{ partner.partnerType }}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="service-type">
+                        <mat-header-cell *matHeaderCellDef>Service Type</mat-header-cell>
+                        <mat-cell class="duration-cell" *matCellDef="let partner">{{ partner.serviceType }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+                        <mat-cell class="duration-cell" *matCellDef="let partner">{{ partner.status }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                        <mat-cell class="duration-cell" *matCellDef="let partner">
+                            <div class="action">
+                                <button class="edit-icon-button" mat-icon-button [routerLink]="'edit/' + partner.id" aria-label="edit icon">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                                <button mat-icon-button [routerLink]="'assign-sla?id=' + partner.id" color="warn" aria-label="add icon">
+                  <mat-icon>add_circle_outline</mat-icon>
+                </button>
+                            </div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                </mat-table>
+                <mat-paginator [length]="partnerListDataSource.totalCount$ | async" [pageSize]="10" [pageSizeOptions]="[10, 20, 50, 100]" (page)="pageEvent = handlePageEvent($event)"></mat-paginator>
+            </div>
+
+            <div class="spinner-container" *ngIf="partnerListDataSource.loading$ | async">
+                <app-spinner></app-spinner>
+            </div>
+        </div>
+    </app-card>
+</div>

@@ -1,0 +1,53 @@
+@import url("~@angular/material/prebuilt-themes/indigo-pink.css");
+:root {
+    --primary-text-color: #5e5873;
+    --secondary-text-color: #fff;
+    --nav-text-color: #625f6e;
+    --primary-color: #7367f0;
+    --primary-color-gradient: #a39cf1;
+    --primary-shadow: #5d50eb;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-expansion-panel-content>.mat-expansion-panel-body {
+    padding: 0 0 0 15px !important;
+}
+
+.mat-selected .mat-active {
+    background-color: var(--primary-color) !important;
+}
+
+.error-snackbar {
+    background-color: rgb(146, 50, 50);
+    color: #fff;
+    .mat-simple-snackbar-action {
+        color: #fff !important;
+    }
+}
+
+.success-snackbar {
+    background-color: rgb(10, 110, 10);
+    color: #fff;
+    .mat-simple-snackbar-action {
+        color: #fff !important;
+    }
+}

@@ -1,0 +1,93 @@
+<div class="container">
+    <app-card>
+        <div class="update-form">
+            <div class="title mat-h1">Update Agency</div>
+            <div class="agency-info"></div>
+            <app-spinner *ngIf="!data_loaded"></app-spinner>
+            <form [formGroup]="partnerEditForm" *ngIf="partner$ | async as partner" (ngSubmit)="onSubmit()">
+                <mat-grid-list cols="6" rowHeight="77px" (window:resize)="onResize($event)">
+                    <mat-grid-tile [colspan]="col_span">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Designation Of Administrative Contact</mat-label>
+
+                            <input matInput formControlName="adminContactDesignation" type="text" [value]="partner.adminContactDesignation" required />
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="col_span">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Agency Type</mat-label>
+                            <mat-select matNativeControl formControlName="partnerType" [value]="partner.partnerType">
+                                <mat-option *ngFor="let option of partnerTypeOptions | keyvalue" [value]="option.key">{{ option.value }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="col_span">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Service Type</mat-label>
+                            <mat-select matNativeControl formControlName="serviceType" [value]="partner.serviceType">
+                                <mat-option *ngFor="let option of serviceTypeOptions | keyvalue" [value]="option.key">{{ option.value }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="col_span">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address</mat-label>
+
+                            <input matInput formControlName="address" [value]="partner.address" type="address" required />
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="col_span">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+
+                            <input matInput formControlName="email" [value]="partner.email" type="email" required />
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="col_span">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Website</mat-label>
+
+                            <input matInput formControlName="website" [value]="partner.website" type="url" />
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="col_span">
+                        <mat-form-field appearance="outline">
+                            <mat-label>IP List</mat-label>
+
+                            <input matInput formControlName="ipList" [value]="partner.ipList" type="text" />
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="col_span">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Max Sub User</mat-label>
+
+                            <input matInput formControlName="maxSubUser" [value]="partner.maxSubUser" type="text" />
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="col_span">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Billing Rate</mat-label>
+                            <mat-select matNativeControl formControlName="billingRate" [value]="partner.billingRate">
+                                <mat-option [value]="1">1.00 BDT</mat-option>
+                                <mat-option [value]="2">2.00 BDT</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="col_span">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Status</mat-label>
+                            <mat-select matNativeControl formControlName="status">
+                                <mat-option value="ACTIVE">ACTIVE</mat-option>
+                                <mat-option value="INACTIVE">INACTIVE</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <app-spinner *ngIf="form_submitted"></app-spinner>
+                <button *ngIf="!form_submitted" class="styled-button" type="submit">
+          Save
+        </button>
+            </form>
+        </div>
+    </app-card>
+</div>
