@@ -20,6 +20,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
+                        "baseHref": "/datahub-portal/",
                         "outputPath": "dist/datahub-portal-ng",
                         "index": "src/index.html",
                         "main": "src/main.ts",
@@ -113,10 +114,12 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "datahub-portal-ng:build:production"
+                            "browserTarget": "datahub-portal-ng:build:production",
+                            "proxyConfig": "src/proxy-prod.conf.json"
                         },
                         "development": {
-                            "browserTarget": "datahub-portal-ng:build:development"
+                            "browserTarget": "datahub-portal-ng:build:development",
+                            "proxyConfig": "src/proxy-dev.conf.json"
                         }
                     },
                     "defaultConfiguration": "development"

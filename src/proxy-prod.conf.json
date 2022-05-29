@@ -1,0 +1,7 @@
+{
+    "/rest": {
+        "target": "http://localhost:8080/datahub-portal",
+        "secure": false,
+        "changeOrigin": true
+    }
+}

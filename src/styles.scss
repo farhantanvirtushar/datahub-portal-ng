@@ -1,11 +1,11 @@
-@import url("~@angular/material/prebuilt-themes/indigo-pink.css");
+@import "./styles/material-theme";
 :root {
     --primary-text-color: #5e5873;
     --secondary-text-color: #fff;
     --nav-text-color: #625f6e;
     --primary-color: #7367f0;
     --primary-color-gradient: #a39cf1;
-    --primary-shadow: #5d50eb;
+    --primary-shadow: #0000007a;
 }
 
 html,
@@ -26,6 +26,18 @@ body {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #8a8a8a;
+    border-radius: 5px;
 }
 
 .mat-expansion-panel-content>.mat-expansion-panel-body {

@@ -1,25 +1,28 @@
 <div class="container">
     <app-card>
-        <div class="update-form">
-            <div class="title mat-h1">Update Agency</div>
-            <div *ngIf="partner$ | async as partner" class="agency-info">
-                <div class="row"><b> #ID :</b> {{ partner.id }}</div>
-                <div class="row"><b> Agency Name :</b> {{ partner.name }}</div>
-            </div>
-            <app-spinner *ngIf="!data_loaded"></app-spinner>
-            <form [formGroup]="partnerEditForm" *ngIf="partner$ | async as partner" (ngSubmit)="onSubmit()">
+        <div class="partner-create-form">
+            <div class="title mat-h1">Create Agency</div>
+
+            <form [formGroup]="partnerCreateForm" (ngSubmit)="onSubmit()">
                 <mat-grid-list cols="6" rowHeight="77px" (window:resize)="onResize($event)">
+                    <mat-grid-tile [colspan]="col_span">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Name</mat-label>
+
+                            <input matInput formControlName="name" type="text" required />
+                        </mat-form-field>
+                    </mat-grid-tile>
                     <mat-grid-tile [colspan]="col_span">
                         <mat-form-field appearance="outline">
                             <mat-label>Designation Of Administrative Contact</mat-label>
 
-                            <input matInput formControlName="adminContactDesignation" type="text" [value]="partner.adminContactDesignation" required />
+                            <input matInput formControlName="adminContactDesignation" type="text" required />
                         </mat-form-field>
                     </mat-grid-tile>
                     <mat-grid-tile [colspan]="col_span">
                         <mat-form-field appearance="outline">
                             <mat-label>Agency Type</mat-label>
-                            <mat-select matNativeControl formControlName="partnerType" [value]="partner.partnerType">
+                            <mat-select matNativeControl formControlName="partnerType">
                                 <mat-option *ngFor="let option of partnerTypeOptions | keyvalue" [value]="option.key">{{ option.value }}</mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -27,7 +30,7 @@
                     <mat-grid-tile [colspan]="col_span">
                         <mat-form-field appearance="outline">
                             <mat-label>Service Type</mat-label>
-                            <mat-select matNativeControl formControlName="serviceType" [value]="partner.serviceType">
+                            <mat-select matNativeControl formControlName="serviceType">
                                 <mat-option *ngFor="let option of serviceTypeOptions | keyvalue" [value]="option.key">{{ option.value }}</mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -36,37 +39,37 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Address</mat-label>
 
-                            <input matInput formControlName="address" [value]="partner.address" type="address" required />
+                            <input matInput formControlName="address" type="address" required />
                         </mat-form-field>
                     </mat-grid-tile>
                     <mat-grid-tile [colspan]="col_span">
                         <mat-form-field appearance="outline">
                             <mat-label>Email</mat-label>
 
-                            <input matInput formControlName="email" [value]="partner.email" type="email" required />
+                            <input matInput formControlName="email" type="email" required />
                         </mat-form-field>
                     </mat-grid-tile>
                     <mat-grid-tile [colspan]="col_span">
                         <mat-form-field appearance="outline">
                             <mat-label>Website</mat-label>
 
-                            <input matInput formControlName="website" [value]="partner.website" type="url" />
+                            <input matInput formControlName="website" type="url" />
                         </mat-form-field>
                     </mat-grid-tile>
                     <mat-grid-tile [colspan]="col_span">
                         <mat-form-field appearance="outline">
                             <mat-label>IP List</mat-label>
 
-                            <input matInput formControlName="ipList" [value]="partner.ipList" type="text" />
+                            <input matInput formControlName="ipList" type="text" />
                         </mat-form-field>
                     </mat-grid-tile>
                     <mat-grid-tile [colspan]="col_span">
                         <mat-form-field appearance="outline">
                             <mat-label>Max Sub User</mat-label>
 
-                            <input matInput formControlName="maxSubUser" [value]="partner.maxSubUser" type="text" />
+                            <input matInput formControlName="maxSubUser" type="text" />
                             <mat-error *ngIf="
-                  partnerEditForm.controls['maxSubUser'].hasError(
+                  partnerCreateForm.controls['maxSubUser'].hasError(
                     'forbiddenValue'
                   )
                 ">must be greater than 0</mat-error>
@@ -75,7 +78,7 @@
                     <mat-grid-tile [colspan]="col_span">
                         <mat-form-field appearance="outline">
                             <mat-label>Billing Rate</mat-label>
-                            <mat-select matNativeControl formControlName="billingRate" [value]="partner.billingRate">
+                            <mat-select matNativeControl formControlName="billingRate">
                                 <mat-option [value]="1">1.00 BDT</mat-option>
                                 <mat-option [value]="2">2.00 BDT</mat-option>
                             </mat-select>

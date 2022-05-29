@@ -15,6 +15,7 @@ export class PartnerService {
   backend_url = environment.API_URL;
   partner_list_url = '/rest/partner/get-data';
   partner_edit_url = '/rest/partner/edit';
+  partner_create_url = '/rest/partner/create';
   partner_details_url = '/rest/partner/details';
 
   constructor(private http: HttpClient) {}
@@ -52,6 +53,14 @@ export class PartnerService {
     return this.http
       .post<RestApiResponse<string>>(
         this.backend_url + this.partner_edit_url,
+        partnerBean
+      )
+      .pipe(map((res) => res.success.data));
+  }
+  createPartner(partnerBean: PartnerBean) {
+    return this.http
+      .post<RestApiResponse<string>>(
+        this.backend_url + this.partner_create_url,
         partnerBean
       )
       .pipe(map((res) => res.success.data));

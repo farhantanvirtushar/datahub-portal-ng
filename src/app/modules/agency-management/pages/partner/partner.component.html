@@ -10,7 +10,9 @@
                         <mat-option value="INACTIVE">INACTIVE</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <button class="styled-button">Create New</button>
+                <button class="styled-button" routerLink="/partner/create">
+          Create New
+        </button>
             </div>
             <div class="partners-table">
                 <mat-table [dataSource]="partnerListDataSource">
@@ -42,7 +44,7 @@
                                 <button class="edit-icon-button" mat-icon-button [routerLink]="'edit/' + partner.id" aria-label="edit icon">
                   <mat-icon>edit</mat-icon>
                 </button>
-                                <button mat-icon-button [routerLink]="'assign-sla?id=' + partner.id" color="warn" aria-label="add icon">
+                                <button mat-icon-button routerLink="assign-sla" [queryParams]="{ id: partner.id }" color="warn" aria-label="add icon">
                   <mat-icon>add_circle_outline</mat-icon>
                 </button>
                             </div>

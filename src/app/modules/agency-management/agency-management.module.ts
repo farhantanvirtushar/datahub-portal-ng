@@ -17,9 +17,11 @@ import { EditPartnerComponent } from './pages/edit-partner/edit-partner.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CreatePartnerComponent } from './pages/create-partner/create-partner.component';
+import { AssignSlaComponent } from './pages/assign-sla/assign-sla.component';
 
 @NgModule({
-  declarations: [PartnerComponent, EditPartnerComponent],
+  declarations: [PartnerComponent, EditPartnerComponent, CreatePartnerComponent, AssignSlaComponent],
   imports: [
     CommonModule,
     AgencyManagementRoutingModule,

@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { NavItem } from 'src/app/shared/models/NavItem';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
+import { ThemeService } from 'src/app/shared/services/theme.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-app-layout',
@@ -91,15 +93,19 @@ export class AppLayoutComponent implements OnInit {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 
+  isDarkTheme$: Observable<boolean>;
+
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    private media: MediaMatcher
+    private media: MediaMatcher,
+    private themeService: ThemeService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
     this.sideNavOpened = this.mobileQuery.matches ? false : true;
-    console.log(this.sideNavOpened);
+
+    this.isDarkTheme$ = this.themeService.isDarkTheme$;
   }
 
   ngOnInit(): void {}
@@ -108,5 +114,9 @@ export class AppLayoutComponent implements OnInit {
     if (this.mobileQuery.matches) {
       this.sidenav.close();
     }
+  }
+
+  toggleDarkTheme(checked: boolean) {
+    this.themeService.setDarkTheme(checked);
   }
 }

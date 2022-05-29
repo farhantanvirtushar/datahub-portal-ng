@@ -1,28 +1,28 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
-  AbstractControl,
-  FormControl,
   FormGroup,
-  ValidationErrors,
-  ValidatorFn,
+  FormControl,
   Validators,
+  ValidatorFn,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
-import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
-import { catchError, Observable, throwError } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { Observable } from 'rxjs';
 import { PartnerBean } from 'src/app/shared/models/partner/PartnerBean';
 import { PartnerType } from 'src/app/shared/models/partner/PartnerType';
 import { ServiceType } from 'src/app/shared/models/partner/ServiceType';
-import { PartnerService } from '../../services/partner.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { RestApiResponse } from 'src/app/shared/models/rest/RestApiResponse';
+import { PartnerService } from '../../services/partner.service';
 
 @Component({
-  selector: 'app-edit-partner',
-  templateUrl: './edit-partner.component.html',
-  styleUrls: ['./edit-partner.component.scss'],
+  selector: 'app-create-partner',
+  templateUrl: './create-partner.component.html',
+  styleUrls: ['./create-partner.component.scss'],
 })
-export class EditPartnerComponent implements OnInit {
+export class CreatePartnerComponent implements OnInit {
   partner$!: Observable<PartnerBean>;
   partnerBean!: PartnerBean;
   id!: number;
@@ -36,7 +36,8 @@ export class EditPartnerComponent implements OnInit {
   partnerTypeOptions: { [key: string]: string } = {};
   serviceTypeOptions: { [key: string]: string } = {};
 
-  partnerEditForm = new FormGroup({
+  partnerCreateForm = new FormGroup({
+    name: new FormControl('', [Validators.required]),
     partnerType: new FormControl('', [Validators.required]),
     serviceType: new FormControl('', [Validators.required]),
     adminContactDesignation: new FormControl('', [Validators.required]),
@@ -59,45 +60,6 @@ export class EditPartnerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
-      this.id = Number.parseInt(params.get('id')!);
-      this.partner$ = this.partnerService.getPartnerDetails(this.id);
-      this.partner$.subscribe({
-        next: (partnerBean: PartnerBean) => {
-          this.partnerBean = partnerBean;
-          this.partnerEditForm = new FormGroup({
-            id: new FormControl(partnerBean.id),
-            name: new FormControl(partnerBean.name),
-            partnerType: new FormControl(partnerBean.partnerType, [
-              Validators.required,
-            ]),
-            serviceType: new FormControl(partnerBean.serviceType, [
-              Validators.required,
-            ]),
-            adminContactDesignation: new FormControl(
-              partnerBean.adminContactDesignation,
-              [Validators.required]
-            ),
-            address: new FormControl(partnerBean.address, [
-              Validators.required,
-            ]),
-            email: new FormControl(partnerBean.email, [Validators.required]),
-            website: new FormControl(partnerBean.website),
-            ipList: new FormControl(partnerBean.ipList),
-            maxSubUser: new FormControl(partnerBean.maxSubUser, [
-              Validators.required,
-              this.maxSubUserValidator(),
-            ]),
-            billingRate: new FormControl(partnerBean.billingRate, [
-              Validators.required,
-            ]),
-            status: new FormControl(partnerBean.status, [Validators.required]),
-          });
-          this.data_loaded = true;
-        },
-      });
-    });
-
     this.adjustColumns();
 
     for (let key of Object.keys(PartnerType)) {
@@ -111,12 +73,12 @@ export class EditPartnerComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.partnerEditForm.invalid) {
+    if (this.partnerCreateForm.invalid) {
       this.openSnackBar('Please provide valid inputs', 'error-snackbar');
       return;
     }
     this.form_submitted = true;
-    this.partnerService.editPartner(this.partnerEditForm.value).subscribe({
+    this.partnerService.createPartner(this.partnerCreateForm.value).subscribe({
       next: (success_message: string) => {
         this.openSnackBar(success_message, 'success-snackbar');
         this.form_submitted = false;
@@ -125,7 +87,7 @@ export class EditPartnerComponent implements OnInit {
       error: (error: HttpErrorResponse) => {
         var errorRes: RestApiResponse<String> = error.error;
         this.openSnackBar(
-          errorRes.status + ' !!! Error with ' + errorRes.error.message,
+          errorRes.status + ' !!! Error message : ' + errorRes.error.message,
           'error-snackbar'
         );
 

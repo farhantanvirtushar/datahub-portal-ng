@@ -7,7 +7,7 @@
                     <!-- use a simple div for an item that has no children,
             match up the styling to the expansion panel styles -->
 
-                    <div class="nav-section" [routerLink]="navItem.url" routerLinkActive="selected" *ngIf="navItem.pages.length === 0">
+                    <div class="nav-section" [ngClass]="{ 'nav-section-light': !(isDarkTheme$ | async) }" [routerLink]="navItem.url" routerLinkActive="selected" *ngIf="navItem.pages.length === 0">
                         <div class="nav-head">
                             <div class="nav-link-item" (click)="closeSidenav()">
                                 <mat-icon class="material-icons-outlined">{{ navItem.icon }}
@@ -42,16 +42,28 @@
             </mat-accordion>
         </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content [style.marginLeft.px]="sidenav.opened && !mobileQuery.matches ? '300' : '0'">
+    <mat-sidenav-content [style.marginLeft.px]="sidenav.opened && !mobileQuery.matches ? '300' : '0'" [ngClass]="{ 'app-light-theme': !(isDarkTheme$ | async) }">
         <div class="app-content">
-            <app-card>
-                <div class="app-top-bar">
-                    <button mat-icon-button color="primary" aria-label="menu icon" type="button" (click)="sidenav.toggle()">
-            <mat-icon>menu</mat-icon>
-          </button>
-                </div>
-            </app-card>
+            <div class="toolbar-container" [ngClass]="{
+          'toolbar-pc': sidenav.opened && !mobileQuery.matches,
+          'toolbar-mobile': mobileQuery.matches || !sidenav.opened
+        }">
+                <mat-toolbar class="app-top-bar">
+                    <div class="top-bar-left">
+                        <button mat-icon-button color="primary" aria-label="menu icon" type="button" (click)="sidenav.toggle()">
+              <mat-icon>menu</mat-icon>
+            </button>
+                    </div>
+                    <span class="toolbar-spacer"></span>
+                    <div class="top-bar-right">
+                        <mat-slide-toggle class="example-margin" [checked]="isDarkTheme$ | async" (change)="toggleDarkTheme($event.checked)">
+                            <mat-icon class="material-icons-outlined">dark_mode </mat-icon>
+                        </mat-slide-toggle>
+                    </div>
+                </mat-toolbar>
+            </div>
 
+            <div class="toolbar-bottom"></div>
             <router-outlet></router-outlet>
         </div>
     </mat-sidenav-content>

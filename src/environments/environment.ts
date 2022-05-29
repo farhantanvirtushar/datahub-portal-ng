@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://localhost:8080/datahub-portal',
+  API_URL: '',
 };
 
 /*
