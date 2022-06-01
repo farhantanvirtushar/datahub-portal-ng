@@ -1,0 +1,48 @@
+.container {
+    margin-top: 30px;
+}
+
+.title {
+    margin-bottom: 30px;
+}
+
+app-spinner {
+    margin-top: 150px;
+}
+
+.agency-info {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.row {
+    padding-top: 5px;
+}
+
+.update-form {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+mat-form-field {
+    width: 100%;
+    padding: 10px;
+}
+
+.styled-button {
+    background-color: var(--primary-color);
+    color: var(--secondary-text-color);
+}

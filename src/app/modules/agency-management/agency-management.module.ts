@@ -17,11 +17,17 @@ import { EditPartnerComponent } from './pages/edit-partner/edit-partner.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CreatePartnerComponent } from './pages/create-partner/create-partner.component';
 import { AssignSlaComponent } from './pages/assign-sla/assign-sla.component';
 
 @NgModule({
-  declarations: [PartnerComponent, EditPartnerComponent, CreatePartnerComponent, AssignSlaComponent],
+  declarations: [
+    PartnerComponent,
+    EditPartnerComponent,
+    CreatePartnerComponent,
+    AssignSlaComponent,
+  ],
   imports: [
     CommonModule,
     AgencyManagementRoutingModule,
@@ -39,6 +45,7 @@ import { AssignSlaComponent } from './pages/assign-sla/assign-sla.component';
     MatButtonModule,
     MatGridListModule,
     MatSnackBarModule,
+    MatCheckboxModule,
   ],
 })
 export class AgencyManagementModule {}

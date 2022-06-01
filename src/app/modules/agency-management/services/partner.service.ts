@@ -5,6 +5,8 @@ import { DataTableParam } from 'src/app/shared/models/DataTableParam';
 import { DataTableResponse } from 'src/app/shared/models/DataTableResponse';
 import { PartnerApiResponse } from 'src/app/shared/models/partner/PartnerApiResponse';
 import { PartnerBean } from 'src/app/shared/models/partner/PartnerBean';
+import { PartnerInfoBean } from 'src/app/shared/models/partner/PartnerInfoBean';
+import { SlaInfoBean } from 'src/app/shared/models/partner/SlaInfoBean';
 import { RestApiResponse } from 'src/app/shared/models/rest/RestApiResponse';
 import { environment } from 'src/environments/environment';
 
@@ -17,6 +19,9 @@ export class PartnerService {
   partner_edit_url = '/rest/partner/edit';
   partner_create_url = '/rest/partner/create';
   partner_details_url = '/rest/partner/details';
+  partner_details_with_sla_url = '/rest/partner/details-with-sla';
+  get_all_sla_url = '/rest/partner/all-sla';
+  assign_sla_url = '/rest/partner/assign-sla';
 
   constructor(private http: HttpClient) {}
 
@@ -62,6 +67,43 @@ export class PartnerService {
       .post<RestApiResponse<string>>(
         this.backend_url + this.partner_create_url,
         partnerBean
+      )
+      .pipe(map((res) => res.success.data));
+  }
+
+  partnerDetailsWithAssignedSla(id: number): Observable<PartnerInfoBean> {
+    return this.http
+      .get<RestApiResponse<PartnerInfoBean>>(
+        this.backend_url + `${this.partner_details_with_sla_url}/${id}`
+      )
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.log(error);
+          return throwError(error);
+        }),
+        map((res) => res.success.data)
+      );
+  }
+
+  getAllSla(): Observable<SlaInfoBean[]> {
+    return this.http
+      .get<RestApiResponse<SlaInfoBean[]>>(
+        this.backend_url + this.get_all_sla_url
+      )
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.log(error);
+          return throwError(error);
+        }),
+        map((res) => res.success.data)
+      );
+  }
+
+  assignSla(partnerInfoBean: PartnerInfoBean) {
+    return this.http
+      .post<RestApiResponse<string>>(
+        this.backend_url + this.assign_sla_url,
+        partnerInfoBean
       )
       .pipe(map((res) => res.success.data));
   }

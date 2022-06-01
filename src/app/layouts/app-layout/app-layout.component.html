@@ -1,6 +1,12 @@
 <mat-sidenav-container class="app-container">
     <mat-sidenav #sidenav class="app-sidenav" [fixedInViewport]="mobileQuery.matches" [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="sideNavOpened">
         <mat-nav-list>
+            <div class="company-info">
+                <div class="company-name">
+                    National Telecommunication Monitoring Center
+                </div>
+                <img src="assets/images/logo.png" alt="" class="logo" />
+            </div>
             <!-- wrap all the nav items in an accordion panel -->
             <mat-accordion displayMode="flat" multi>
                 <div *ngFor="let navItem of navList" class="nav-item">

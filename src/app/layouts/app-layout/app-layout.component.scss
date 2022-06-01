@@ -6,6 +6,29 @@
 .app-sidenav {
     padding: 5px;
     width: 300px;
+    background-color: #0b2e4d;
+}
+
+.company-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    background-color: #34628b;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.company-name {
+    text-align: center;
+    font-size: larger;
+    margin-bottom: 10px;
+}
+
+.logo {
+    width: 120px;
+    margin-bottom: 10px;
 }
 
 .nav-bar {
@@ -26,6 +49,7 @@
     margin-top: 5px;
     border-radius: 5px;
     transition: 0.3s;
+    color: #aaaaaa;
 }
 
 .nav-section:hover {
@@ -33,13 +57,8 @@
     transition: 0.3s;
 }
 
-.nav-section-light {
-    color: var(--nav-text-color);
-}
-
 .selected {
-    background-image: linear-gradient(to right, #7367f0, #a39cf1);
-    box-shadow: 0 4px 8px 0 var(--primary-shadow);
+    background-color: #34628b;
     color: var(--secondary-text-color);
 }
 

@@ -95,7 +95,8 @@
                     </mat-grid-tile>
                 </mat-grid-list>
                 <app-spinner *ngIf="form_submitted"></app-spinner>
-                <button *ngIf="!form_submitted" class="styled-button" type="submit">
+                <button mat-raised-button *ngIf="!form_submitted" class="styled-button" type="submit">
+          <mat-icon class="material-icons-filled">save </mat-icon>
           Save
         </button>
             </form>

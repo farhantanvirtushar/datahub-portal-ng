@@ -1,1 +1,28 @@
-<p>assign-sla works!</p>
+<div class="container">
+    <app-card>
+        <div class="update-form">
+            <div class="title mat-h1">Assign Sla</div>
+            <div *ngIf="partnerInfoBean$ | async as partnerInfoBean" class="agency-info">
+                <div class="row"><b> #ID :</b> {{ partnerInfoBean.id }}</div>
+                <div class="row"><b> Agency Name :</b> {{ partnerInfoBean.name }}</div>
+            </div>
+            <app-spinner *ngIf="!(allSla$ | async)"></app-spinner>
+            <form [formGroup]="assignSlaForm" *ngIf="allSla$ | async as allSla" (ngSubmit)="onSubmit()">
+                <mat-grid-list cols="6" rowHeight="77px" (window:resize)="onResize($event)">
+                    <ng-container formArrayName="slaInfoBeanList">
+                        <mat-grid-tile [colspan]="col_span" *ngFor="let slaInfoBean of allSla; let i = index">
+                            <mat-checkbox [formControlName]="i" labelPosition="after">
+                                {{ slaInfoBean.name }}
+                            </mat-checkbox>
+                        </mat-grid-tile>
+                    </ng-container>
+                </mat-grid-list>
+                <app-spinner *ngIf="form_submitted"></app-spinner>
+                <button mat-raised-button *ngIf="!form_submitted" class="styled-button" type="submit">
+          <mat-icon class="material-icons-filled">save </mat-icon>
+          Save
+        </button>
+            </form>
+        </div>
+    </app-card>
+</div>
