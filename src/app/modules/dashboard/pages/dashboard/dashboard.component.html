@@ -1,1 +1,17 @@
-<p>dashboard works!</p>
+<div class="container">
+    <app-static-data></app-static-data>
+    <mat-grid-list cols="6" rowHeight="400px" [gutterSize]="'10px'" (window:resize)="onResize($event)">
+        <mat-grid-tile [colspan]="col_span" class="chart-data">
+            <app-daily-usage class="chart-component"></app-daily-usage>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="col_span" class="chart-data">
+            <app-monthly-usage class="chart-component"></app-monthly-usage>
+        </mat-grid-tile>
+        <div *ngIf="agency_usage$ | async as agency_usage">
+            <mat-grid-tile *ngFor="let chart of agency_usage.charts" [colspan]="col_span" class="chart-data">
+                <app-agency-usage [chart]="chart" class="chart-component"></app-agency-usage>
+            </mat-grid-tile>
+        </div>
+    </mat-grid-list>
+    <!-- <app-spinner *ngIf="form_submitted"></app-spinner> -->
+</div>

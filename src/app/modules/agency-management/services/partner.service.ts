@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { catchError, finalize, map, Observable, throwError } from 'rxjs';
 import { DataTableParam } from 'src/app/shared/models/DataTableParam';
 import { DataTableResponse } from 'src/app/shared/models/DataTableResponse';
-import { PartnerApiResponse } from 'src/app/shared/models/partner/PartnerApiResponse';
 import { PartnerBean } from 'src/app/shared/models/partner/PartnerBean';
 import { PartnerInfoBean } from 'src/app/shared/models/partner/PartnerInfoBean';
 import { SlaInfoBean } from 'src/app/shared/models/partner/SlaInfoBean';

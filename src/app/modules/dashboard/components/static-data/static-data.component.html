@@ -1,0 +1,28 @@
+<div class="static-data-container">
+    <mat-grid-list cols="2" rowHeight="250px" [gutterSize]="'10px'" (window:resize)="onResize($event)">
+        <div class="spinner-container" *ngIf="!(static_data$ | async)">
+            <app-spinner></app-spinner>
+        </div>
+
+        <div *ngIf="static_data$ | async as static_data">
+            <mat-grid-tile [colspan]="col_span" class="summary">
+                <div class="data">
+                    <div class="title">Summary</div>
+                    <div *ngFor="let summary_key of summary_keys; let i = index" class="data-row">
+                        <div class="key">{{ summary_texts[i] }}</div>
+                        <div class="value">{{ static_data[summary_key] }}</div>
+                    </div>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="col_span" class="today-count">
+                <div class="data">
+                    <div class="title">Today's Count</div>
+                    <div *ngFor="let today_count_key of today_count_keys; let i = index" class="data-row">
+                        <div class="key">{{ today_count_texts[i] }}</div>
+                        <div class="value">{{ static_data[today_count_key] }}</div>
+                    </div>
+                </div>
+            </mat-grid-tile>
+        </div>
+    </mat-grid-list>
+</div>

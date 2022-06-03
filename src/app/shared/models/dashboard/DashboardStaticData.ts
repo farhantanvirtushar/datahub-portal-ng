@@ -1,4 +1,5 @@
 export interface DashboardStaticData {
+  [key: string]: any;
   agency: number;
   serviceUser: number;
   portalUser: number;
