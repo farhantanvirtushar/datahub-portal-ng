@@ -31,6 +31,11 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'sla',
+        loadChildren: () =>
+          import('./modules/sla/sla.module').then((m) => m.SlaModule),
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',

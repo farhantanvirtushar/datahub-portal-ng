@@ -1,0 +1,57 @@
+<div class="container">
+    <app-card>
+        <div class="container-body">
+            <div class="title mat-h1">Service Management</div>
+            <div class="row">
+                <!-- <mat-form-field appearance="outline">
+                  <mat-label>Status</mat-label>
+                  <mat-select matNativeControl value="ACTIVE">
+                      <mat-option value="ACTIVE">ACTIVE</mat-option>
+                      <mat-option value="INACTIVE">INACTIVE</mat-option>
+                  </mat-select>
+              </mat-form-field> -->
+                <button mat-raised-button class="styled-button" routerLink="/sla/create">
+          Create New
+        </button>
+            </div>
+            <div class="sla-table">
+                <mat-table [dataSource]="slaListDataSource">
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef>Service Name</mat-header-cell>
+                        <mat-cell *matCellDef="let sla">{{ sla.name }}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="description">
+                        <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+                        <mat-cell *matCellDef="let sla">{{ sla.description }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                        <mat-cell class="duration-cell" *matCellDef="let sla">
+                            <div class="action">
+                                <button color="primary" mat-icon-button [routerLink]="'edit/' + sla.id" aria-label="edit icon">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                                <button mat-icon-button *ngIf="sla.status == 'ACTIVE'" color="warn" aria-label="deactivate icon" (click)="openDialog(sla)">
+                  <mat-icon>pause_circle_filled</mat-icon>
+                </button>
+                                <button mat-icon-button *ngIf="sla.status == 'INACTIVE'" class="resume-button" aria-label="add icon">
+                  <mat-icon>play_circle_filled</mat-icon>
+                </button>
+                            </div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                </mat-table>
+                <mat-paginator [length]="slaListDataSource.totalCount$ | async" [pageSize]="10" [pageSizeOptions]="[10, 20, 50, 100]" (page)="pageEvent = handlePageEvent($event)"></mat-paginator>
+            </div>
+
+            <div class="spinner-container" *ngIf="slaListDataSource.loading$ | async">
+                <app-spinner></app-spinner>
+            </div>
+        </div>
+    </app-card>
+</div>

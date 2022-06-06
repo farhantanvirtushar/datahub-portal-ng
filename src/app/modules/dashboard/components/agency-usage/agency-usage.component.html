@@ -1,3 +1,9 @@
 <div class="chart">
+    <div class="chart-header">
+        <div class="title">Agency Usage</div>
+
+        <div class="subheader">Last updated : {{ chart.updateTimeString }}</div>
+        <div *ngIf="chart.series.length == 0">No data to display</div>
+    </div>
     <canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="barChartType"></canvas>
 </div>

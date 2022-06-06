@@ -1,4 +1,23 @@
 .chart {
-    max-width: 700px;
     padding: 15px;
+}
+
+canvas {
+    max-height: 300px;
+}
+
+.chart-header {
+    width: 100%;
+    text-align: center;
+}
+
+.title {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.subheader {
+    margin-top: 3px;
+    font-size: 0.5rem;
+    font-weight: 400;
 }

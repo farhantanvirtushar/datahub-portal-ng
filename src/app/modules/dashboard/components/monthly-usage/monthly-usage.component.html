@@ -1,3 +1,12 @@
 <div class="chart">
+    <div class="chart-header">
+        <div class="title">Monthly Usage</div>
+        <ng-container *ngIf="monthly_usage$ | async as monthly_usage">
+            <div class="subheader">
+                Last updated : {{ monthly_usage.updateTimeString }}
+            </div>
+            <div *ngIf="monthly_usage.series.length == 0">No data to display</div>
+        </ng-container>
+    </div>
     <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [type]="lineChartType"></canvas>
 </div>

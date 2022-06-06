@@ -31,8 +31,6 @@ export class MonthlyUsageComponent implements OnInit {
     this.monthly_usage$ = this.dashboardService.getMonthlyChart();
     this.monthly_usage$.subscribe({
       next: (apexChart: ApexChart) => {
-        console.log(apexChart);
-
         this.lineChartData = {
           labels: apexChart.categories,
           datasets: apexChart.series.map((dataset) => {

@@ -33,7 +33,7 @@ export class AppLayoutComponent implements OnInit {
     {
       name: 'Sub User Management',
       icon: 'people_outline',
-      url: '/sla',
+      url: '/sub-user',
       pages: [],
     },
     {

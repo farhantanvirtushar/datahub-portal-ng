@@ -27,8 +27,6 @@ export class AgencyUsageComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.chart);
-
     this.barChartData = {
       labels: this.chart.categories,
       datasets: this.chart.series.map((dataset) => {

@@ -1,4 +1,15 @@
 <div class="chart">
+    <div class="chart-header">
+        <div class="title">Daily Usage</div>
+        <ng-container *ngIf="daily_usage$ | async as daily_usage">
+            <div class="subheader">
+                Last updated : {{ daily_usage.updateTimeString }}
+            </div>
+            <div *ngIf="daily_usage.linearData.length == 0" style="margin-top: 30px">
+                No data to display
+            </div>
+        </ng-container>
+    </div>
     <canvas #myCanvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions">
   </canvas>
 </div>

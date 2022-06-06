@@ -46,6 +46,8 @@ export class DailyUsageComponent implements OnInit {
     this.daily_usage$ = this.dashboardService.getDailyChart();
     this.daily_usage$.subscribe({
       next: (apexChart: ApexChart) => {
+        console.log('daily usage');
+        console.log(apexChart);
         this.pieChartData = {
           labels: apexChart.categories,
           datasets: [
