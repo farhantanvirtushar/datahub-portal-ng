@@ -114,12 +114,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "datahub-portal-ng:build:production",
-                            "proxyConfig": "src/proxy-prod.conf.json"
+                            "browserTarget": "datahub-portal-ng:build:production"
                         },
                         "development": {
-                            "browserTarget": "datahub-portal-ng:build:development",
-                            "proxyConfig": "src/proxy-dev.conf.json"
+                            "browserTarget": "datahub-portal-ng:build:development"
                         }
                     },
                     "defaultConfiguration": "development"

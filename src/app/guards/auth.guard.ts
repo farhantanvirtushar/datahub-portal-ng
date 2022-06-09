@@ -22,15 +22,19 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    var token_exists: boolean = localStorage.getItem('auth_token') != null;
+    var logged_in: boolean = sessionStorage.getItem('logged_in') != null;
 
-    console.log(token_exists);
-    if (token_exists) {
+    var cookies_exist: boolean = true;
+
+    console.log(document.cookie);
+    console.log(cookies_exist);
+    // console.log(token_exists);
+    if (cookies_exist) {
       return true;
     }
 
     // this.router.navigate(['/login']);
-    // return false;
     return true;
+    // return true;
   }
 }

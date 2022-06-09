@@ -1,0 +1,25 @@
+<div class="login-container">
+    <h1>Sign In</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+            <mat-label>Enter your username</mat-label>
+            <input matInput placeholder="pat@example.com" formControlName="username" required />
+            <mat-error *ngIf="loginForm.controls['username']">{{ getErrorMessage() }}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+        </mat-form-field>
+
+        <div class="error" *ngIf="err_msg != null">{{ err_msg }}</div>
+        <mat-spinner *ngIf="submitted" [diameter]="50"></mat-spinner>
+        <button class="form-button" *ngIf="!submitted" mat-raised-button color="primary" type="submit">
+      Sign In
+    </button>
+    </form>
+</div>

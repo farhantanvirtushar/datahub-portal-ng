@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { DataTableParam } from 'src/app/shared/models/DataTableParam';
 import { DataTableResponse } from 'src/app/shared/models/DataTableResponse';
 import { RestApiResponse } from 'src/app/shared/models/rest/RestApiResponse';
@@ -20,6 +20,8 @@ export class SlaService {
   get_all_sla_url = '/rest/sla/all-sla';
   activate_sla_url = '/rest/sla/activate/{id}';
   deactivate_sla_url = '/rest/sla/de-activate/{id}';
+  requestFields_url = '/rest/sla/requestFields';
+  responseFields_url = '/rest/sla/responseFields';
 
   constructor(private http: HttpClient) {}
 
@@ -34,6 +36,49 @@ export class SlaService {
         }
       )
       .pipe(map((res) => res.success.data));
+  }
+
+  getSlaDetails(id: number): Observable<SlaBean> {
+    console.log('getting partner');
+
+    return this.http
+      .get<RestApiResponse<SlaBean>>(
+        this.backend_url + this.sla_details_url.replace('{id}', id.toString())
+      )
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.log(error);
+          return throwError(error);
+        }),
+        map((res) => res.success.data)
+      );
+  }
+
+  getRequestFields(): Observable<Map<String, Map<String, String>>> {
+    return this.http
+      .get<RestApiResponse<Map<String, Map<String, String>>>>(
+        this.backend_url + this.requestFields_url
+      )
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.log(error);
+          return throwError(error);
+        }),
+        map((res) => res.success.data)
+      );
+  }
+  getResponseFields(): Observable<Map<String, Map<String, String>>> {
+    return this.http
+      .get<RestApiResponse<Map<String, Map<String, String>>>>(
+        this.backend_url + this.responseFields_url
+      )
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.log(error);
+          return throwError(error);
+        }),
+        map((res) => res.success.data)
+      );
   }
 
   activate(id: number): Observable<string> {

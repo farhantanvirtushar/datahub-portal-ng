@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
-import { LoginComponent } from './auth/login/login.component';
+
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,6 +19,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { SharedModule } from './shared/shared.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoginComponent } from './auth/pages/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [AppComponent, AppLayoutComponent, LoginComponent],
@@ -37,6 +42,11 @@ import { SharedModule } from './shared/shared.module';
     MatExpansionModule,
     MatSlideToggleModule,
     MatToolbarModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatInputModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

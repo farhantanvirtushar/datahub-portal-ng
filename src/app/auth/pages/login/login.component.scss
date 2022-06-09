@@ -1,0 +1,45 @@
+.login-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    min-width: 350px;
+    margin: 5px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.form-button {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.error {
+    color: crimson;
+}
+
+h1 {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.or {
+    width: 100%;
+    text-align: center;
+    height: 10px;
+    border-bottom: 1px solid #000;
+    margin: 20px 0 20px;
+    span {
+        background-color: #fff;
+        padding: 0px 10px 0px;
+    }
+}

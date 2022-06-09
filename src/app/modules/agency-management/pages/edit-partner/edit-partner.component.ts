@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
+  FormBuilder,
   FormControl,
   FormGroup,
   ValidationErrors,
@@ -36,23 +37,11 @@ export class EditPartnerComponent implements OnInit {
   partnerTypeOptions: { [key: string]: string } = {};
   serviceTypeOptions: { [key: string]: string } = {};
 
-  partnerEditForm = new FormGroup({
-    partnerType: new FormControl('', [Validators.required]),
-    serviceType: new FormControl('', [Validators.required]),
-    adminContactDesignation: new FormControl('', [Validators.required]),
-    address: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
-    website: new FormControl(''),
-    ipList: new FormControl(''),
-    maxSubUser: new FormControl('', [
-      Validators.required,
-      this.maxSubUserValidator(),
-    ]),
-    billingRate: new FormControl('', [Validators.required]),
-    status: new FormControl('', [Validators.required]),
-  });
+  partnerEditForm = this.fb.group({});
+
   constructor(
     private partnerService: PartnerService,
+    private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private _snackBar: MatSnackBar
@@ -62,40 +51,7 @@ export class EditPartnerComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
       this.id = Number.parseInt(params.get('id')!);
       this.partner$ = this.partnerService.getPartnerDetails(this.id);
-      this.partner$.subscribe({
-        next: (partnerBean: PartnerBean) => {
-          this.partnerBean = partnerBean;
-          this.partnerEditForm = new FormGroup({
-            id: new FormControl(partnerBean.id),
-            name: new FormControl(partnerBean.name),
-            partnerType: new FormControl(partnerBean.partnerType, [
-              Validators.required,
-            ]),
-            serviceType: new FormControl(partnerBean.serviceType, [
-              Validators.required,
-            ]),
-            adminContactDesignation: new FormControl(
-              partnerBean.adminContactDesignation,
-              [Validators.required]
-            ),
-            address: new FormControl(partnerBean.address, [
-              Validators.required,
-            ]),
-            email: new FormControl(partnerBean.email, [Validators.required]),
-            website: new FormControl(partnerBean.website),
-            ipList: new FormControl(partnerBean.ipList),
-            maxSubUser: new FormControl(partnerBean.maxSubUser, [
-              Validators.required,
-              this.maxSubUserValidator(),
-            ]),
-            billingRate: new FormControl(partnerBean.billingRate, [
-              Validators.required,
-            ]),
-            status: new FormControl(partnerBean.status, [Validators.required]),
-          });
-          this.data_loaded = true;
-        },
-      });
+      this.loadPartnerData();
     });
 
     this.adjustColumns();
@@ -110,6 +66,34 @@ export class EditPartnerComponent implements OnInit {
     }
   }
 
+  loadPartnerData() {
+    this.partner$.subscribe({
+      next: (partnerBean: PartnerBean) => {
+        this.partnerBean = partnerBean;
+        this.partnerEditForm = this.fb.group({
+          id: [partnerBean.id],
+          name: [partnerBean.name],
+          partnerType: [partnerBean.partnerType, [Validators.required]],
+          serviceType: [partnerBean.serviceType, [Validators.required]],
+          adminContactDesignation: [
+            partnerBean.adminContactDesignation,
+            [Validators.required],
+          ],
+          address: [partnerBean.address, [Validators.required]],
+          email: [partnerBean.email, [Validators.required]],
+          website: [partnerBean.website],
+          ipList: [partnerBean.ipList],
+          maxSubUser: [
+            partnerBean.maxSubUser,
+            [Validators.required, this.maxSubUserValidator()],
+          ],
+          billingRate: [partnerBean.billingRate, [Validators.required]],
+          status: [partnerBean.status, [Validators.required]],
+        });
+        this.data_loaded = true;
+      },
+    });
+  }
   onSubmit() {
     if (this.partnerEditForm.invalid) {
       this.openSnackBar('Please provide valid inputs', 'error-snackbar');
